@@ -1,5 +1,7 @@
 var camera, scene, renderer;
 var mesh;
+var synth = new Tone.Synth().toMaster();
+
 // Link to OSC data
 socket = new NodeSocket();
 init();
@@ -31,12 +33,53 @@ function onWindowResize() {
 }
 function animate() {
     requestAnimationFrame( animate );
+var b = socket.getBeta()/20000;
+console.log(b);
 
-    if(socket.getBeta() > 0.5){
+    if(b > 0.0 && b<0.4){
         mesh.rotation.x += 0.005;
-        mesh.rotation.y += 0.01;
-        //synth.triggerAttackRelease('C4','8n',0);
-    }
+		synth.triggerAttackRelease('C4', '8n');
 
+        mesh.rotation.y += 0.01;
+		
+   }
+   else
+if(b > 0.4 && b<0.8){
+        mesh.rotation.x += 0.005;
+		synth.triggerAttackRelease('D4', '8n');
+
+        mesh.rotation.y += 0.01;
+		
+   }
+   else
+   if(b > 0.8 && b<1.2){
+        mesh.rotation.x += 0.005;
+		synth.triggerAttackRelease('A4', '8n');
+
+        mesh.rotation.y += 0.01;
+		
+		
+   }
+   else if (b > 1.2 && b<1.6) {
+	    mesh.rotation.x += 0.005;
+		synth.triggerAttackRelease('A4', '8n');
+
+        mesh.rotation.y += 0.01;
+   }
+    else if  (b > 1.6 && b<2.0) {
+	    mesh.rotation.x += 0.005;
+		synth.triggerAttackRelease('A4', '8n');
+
+        mesh.rotation.y += 0.01;
+   }
+    else if (b > 2.4 && b<2.8) {
+	    mesh.rotation.x += 0.005;
+		synth.triggerAttackRelease('A4', '8n');
+
+        mesh.rotation.y += 0.01;
+   }
+   else{
+   synth.triggerAttackRelease('A4', '8n');}
+   
     renderer.render( scene, camera );
 }
