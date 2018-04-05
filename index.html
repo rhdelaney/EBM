@@ -3,14 +3,289 @@
 
 <head>
 
-    <title>Basic BCI</title> 
+    <title>Basic BCI</title>
     <script src="/socket.io/socket.io.js"></script>
+    <!-- -->
+    <style>
+    body {
+  background-color: #0A1F16;
+  overflow: hidden;
+}
+
+.subtitle {
+text-align:center;
+color:white;
+font-family: 'Amaranth', sans-serif;
+font-size: 15px;
+margin-top:25px;
+}
+.subtitle span {
+border-bottom: 2.5px white solid;
+}
+#circleboom {
+height:0px;
+width:0px;
+border-radius: 50%;
+margin:auto;
+margin-top:400px;
+postion:absolute;
+transition:3s;
+-webkit-transition-timing-function: ease-out;
+}
+.circleup {
+height:500px !important;
+width:500px !important;
+margin: auto !important;
+margin: -50px;
+opacity:0;
+top: 206px;
+left: 0;
+right: 0;
+position: absolute;
+}
+#keys {
+  height: 116px;
+  width: 672px;
+  padding-right: 10px;
+  padding-top: 100px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#keys p {
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.box {
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  float: left;
+  border-radius: 10px;
+  display: block;
+  -webkit-transition: all .15s ease-out;
+  transition: all .15s ease-out;
+  border: 3px solid #FF7043;
+  box-shadow: 0px 6px 0px #F4511E;
+}
+
+.click {
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  float: left;
+  border-radius: 10px;
+  display: block;
+  -webkit-transition: all .15s ease-out;
+  transition: all .15s ease-out;
+  border: 3px solid #FF7043;
+  box-shadow: 0px 6px 0px #F4511E;
+}
+svg {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+circle {
+fill: rgba(255, 255, 255, 0.3);
+}
+
+#a {
+  border: 3px solid #E040FB;
+  box-shadow: 0px 6px 0px #AA00FF;
+}
+
+#b {
+  border: 3px solid #7C4DFF;
+  box-shadow: 0px 6px 0px #6200EA;
+}
+
+#c {
+  border: 3px solid #448AFF;
+  box-shadow: 0px 6px 0px #2962FF;
+}
+
+#d {
+  border: 3px solid #9CCC65;
+  box-shadow: 0px 6px 0px #2E7D32;
+}
+
+#e {
+  border: 3px solid #FFF176;
+  box-shadow: 0px 6px 0px #FFD600;
+}
+
+#f {
+  border: 3px solid #FFB74D;
+  box-shadow: 0px 6px 0px #FF9100;
+}
+
+#g {
+  border: 3px solid #FF7043;
+  box-shadow: 0px 6px 0px #F4511E;
+}
+
+
+.box.active {
+  margin-top: 5px;
+}
+
+#a.active {
+  box-shadow: 0px 3px 0px #AA00FF !important;
+}
+
+#b.active {
+  box-shadow: 0px 3px 0px #6200EA !important;
+}
+
+#c.active {
+  box-shadow: 0px 3px 0px #2962FF !important;
+}
+
+#d.active {
+  box-shadow: 0px 3px 0px #2E7D32 !important;
+}
+
+#e.active {
+  box-shadow: 0px 3px 0px #FFD600 !important;
+}
+
+#f.active {
+  box-shadow: 0px 3px 0px #FF9100 !important;
+}
+
+#g.active {
+  box-shadow: 0px 3px 0px #F4511E !important;
+}
+    </style>
+    <!-- -->
 </head>
     <body>
-           
-    
+<!-- This is my jank-->
+
+<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Amaranth:400,700italic' rel='stylesheet' type='text/css'>
+<div class="subtitle">Use your keyboard for piano <span>sound</span> and <span>color</span></div>
+<div id="keys">
+		<div id="a" class="box">
+				<p>A</p>
+		</div>
+		<div id="b" class="box">
+				<p>Z</p>
+		</div>
+		<div id="c" class="box">
+				<p>E</p>
+		</div>
+		<div id="d" class="box">
+				<p>R</p>
+		</div>
+		<div id="e" class="box">
+				<p>T</p>
+		</div>
+		<div id="f" class="box">
+				<p>Y</p>
+		</div>
+		<div id="g" class="box">
+				<p>U</p>
+		</div>
+</div>
+<div id="circleboom"></div>
+
+<!--Stuff before here -->
     </body>
      <script type="text/javascript" src="js/three.min.js"></script>
      <script type="text/javascript" src="js/nodesocket.js"></script>
      <script type="text/javascript" src="js/main.js"></script>
+     <!--
+     var keyAllowed = {};
+$("#circleboom").before('<div style="background-color:#E040FB" id="circleboom"></div>').addClass("circleup");
+
+$(document).on('keydown', function(e) {
+		if (keyAllowed[e.which] === false) return;
+		keyAllowed[e.which] = false;
+		if (e.which >= 1 && e.which <= 100) {
+				var k = String.fromCharCode(e.which).toLowerCase();
+				if (k == "a") {
+						k = "a";
+						$("#circleboom").before('<div style="background-color:#E040FB" id="circleboom"></div>').addClass("circleup");
+				}
+				if (k == "z") {
+						k = "b";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#7C4DFF" id="circleboom"></div>');
+				}
+				if (k == "e") {
+						k = "c";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#448AFF" id="circleboom"></div>');
+				}
+				if (k == "r") {
+						k = "d";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#9CCC65" id="circleboom"></div>');
+				}
+				if (k == "t") {
+						k = "e";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#FFF176" id="circleboom"></div>');
+				}
+				if (k == "y") {
+						k = "f";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#FFB74D" id="circleboom"></div>');
+				}
+				if (k == "u") {
+						k = "g";
+					$("#circleboom").addClass("circleup");
+						$("#circleboom").before('<div style="background-color:#FF7043" id="circleboom"></div>');
+				}
+				$("#" + k).addClass("active");
+		}
+}).keyup(function(e) {
+		if (e.which >= 1 && e.which <= 100) {
+				keyAllowed[e.which] = true;
+				var k = String.fromCharCode(e.which).toLowerCase();
+				if (k == "a") {
+						k = "a";
+				}
+				if (k == "z") {
+						k = "b";
+				}
+				if (k == "e") {
+						k = "c";
+				}
+				if (k == "r") {
+						k = "d";
+				}
+				if (k == "t") {
+						k = "e";
+				}
+				if (k == "y") {
+						k = "f";
+				}
+				if (k == "u") {
+						k = "g";
+				}
+				$("#" + k).removeClass("active");
+		}
+});
+
+$(".box").on('mouseleave mouseup', function() {
+		if ($(this).hasClass("click")) {
+				$(this).removeClass("active");
+				$(this).removeClass("click");
+		}
+});
+</script>
+    inbetween here -->
 </html>

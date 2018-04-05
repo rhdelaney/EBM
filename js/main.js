@@ -6,12 +6,21 @@ var synth = new Tone.Synth().toMaster();
 socket = new NodeSocket();
 init();
 animate();
+var keyDownAnimationA = {
+    box-shadow: "0px 3px 0px #AA00FF !important"
+}
 
+$("#a" ).animate(keyDownAnimationA)
+/*
+$( "#a" ).animate({
+    width: "70%",
+    opacity: 0.4,
+    marginLeft: "0.6in",
+    fontSize: "3em",
+    borderWidth: "10px"
+  }, 1500 );*/
 
 function init() {
-  
-   
-
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
     camera.position.z = 400;
     scene = new THREE.Scene();
@@ -26,6 +35,7 @@ function init() {
     document.body.appendChild( renderer.domElement );
     window.addEventListener( 'resize', onWindowResize, false );
 }
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -33,53 +43,53 @@ function onWindowResize() {
 }
 function animate() {
     requestAnimationFrame( animate );
-var b = socket.getBeta()/20000;
-console.log(b);
-
+    var b = socket.getBeta()/20000;
+    console.log(b);
     if(b > 0.0 && b<0.4){
+        //(#a).addClass("active");
         mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('C4', '8n');
-
+		    synth.triggerAttackRelease('C4', '8n');
         mesh.rotation.y += 0.01;
-		
+        //(#a).removeClass("active");
    }
-   else
-if(b > 0.4 && b<0.8){
+   else if(b > 0.4 && b<0.8){
+        //(#b).addClass("active");
         mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('D4', '8n');
-
+		    synth.triggerAttackRelease('D4', '8n');
         mesh.rotation.y += 0.01;
-		
+        //(#b).removeClass("active");
    }
-   else
-   if(b > 0.8 && b<1.2){
+   else if(b > 0.8 && b<1.2){
+        //(#c).addClass("active");
         mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('A4', '8n');
-
+		    synth.triggerAttackRelease('A4', '8n');
         mesh.rotation.y += 0.01;
-		
-		
+        //(#c).removeClass("active");
    }
    else if (b > 1.2 && b<1.6) {
+     //(#d).addClass("active");
 	    mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('A4', '8n');
-
-        mesh.rotation.y += 0.01;
+		  synth.triggerAttackRelease('A4', '8n');
+      mesh.rotation.y += 0.01;
+      //(#d).removeClass("active");
    }
     else if  (b > 1.6 && b<2.0) {
+      //(#e).addClass("active");
 	    mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('A4', '8n');
-
-        mesh.rotation.y += 0.01;
+		  synth.triggerAttackRelease('A4', '8n');
+      mesh.rotation.y += 0.01;
+      //(#e).removeClass("active");
    }
     else if (b > 2.4 && b<2.8) {
+      //(#f).addClass("active");
 	    mesh.rotation.x += 0.005;
-		synth.triggerAttackRelease('A4', '8n');
-
-        mesh.rotation.y += 0.01;
+		  synth.triggerAttackRelease('A4', '8n');
+      mesh.rotation.y += 0.01;
+      //(#f).removeClass("active");
    }
    else{
-   synth.triggerAttackRelease('A4', '8n');}
-   
-    renderer.render( scene, camera );
+     //(#g).addClass("active");
+      synth.triggerAttackRelease('A4', '8n');}
+      renderer.render( scene, camera );
+      //(#g).removeClass("active");
 }
