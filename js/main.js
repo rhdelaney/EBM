@@ -46,50 +46,57 @@ function animate() {
     var b = socket.getBeta()/20000;
     console.log(b);
     if(b > 0.0 && b<0.4){
-        //(#a).addClass("active");
+        var key=document.getElementById("a");
+        key.addClass("active");
                   //mesh.rotation.x += 0.005;
 		    synth.triggerAttackRelease('C4', '8n');
                   //mesh.rotation.y += 0.01;
-        //(#a).removeClass("active");
+        key.removeClass("active");
    }
    else if(b > 0.4 && b<0.8){
-        //(#b).addClass("active");
+        var key=document.getElementById("b");
+        key.addClass("active");
                   //mesh.rotation.x += 0.005;
 		    synth.triggerAttackRelease('D4', '8n');
                   //mesh.rotation.y += 0.01;
-        //(#b).removeClass("active");
+        key.removeClass("active");
    }
    else if(b > 0.8 && b<1.2){
-        //(#c).addClass("active");
+        var key=document.getElementById("c");
+        key.addClass("active");
                 //mesh.rotation.x += 0.005;
 		    synth.triggerAttackRelease('A4', '8n');
                 //mesh.rotation.y += 0.01;
-        //(#c).removeClass("active");
+        key.removeClass("active");
    }
    else if (b > 1.2 && b<1.6) {
-     //(#d).addClass("active");
+     var key=document.getElementById("d");
+     key.addClass("active");
 	             //mesh.rotation.x += 0.005;
 		  synth.triggerAttackRelease('A4', '8n');
               //mesh.rotation.y += 0.01;
-      //(#d).removeClass("active");
+      key.removeClass("active");
    }
     else if  (b > 1.6 && b<2.0) {
-      //(#e).addClass("active");
+      var key=document.getElementById("e");
+      key.addClass("active");
 	             //mesh.rotation.x += 0.005;
 		  synth.triggerAttackRelease('A4', '8n');
               //mesh.rotation.y += 0.01;
-      //(#e).removeClass("active");
+      key.removeClass("active");
    }
     else if (b > 2.4 && b<2.8) {
-      //(#f).addClass("active");
+      var key=document.getElementById("f");
+      key.addClass("active");
 	             //mesh.rotation.x += 0.005;
 		  synth.triggerAttackRelease('A4', '8n');
               //mesh.rotation.y += 0.01;
-      //(#f).removeClass("active");
+      key.removeClass("active");
    }
    else{
-      //(#g).addClass("active");
+     var key=document.getElementById("g");
+     key.addClass("active");
       synth.triggerAttackRelease('A4', '8n');}
       renderer.render( scene, camera );
-      //(#g).removeClass("active");
+      key.removeClass("active");
 }

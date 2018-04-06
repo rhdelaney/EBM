@@ -22,27 +22,6 @@ margin-top:25px;
 .subtitle span {
 border-bottom: 2.5px white solid;
 }
-#circleboom {
-height:0px;
-width:0px;
-border-radius: 50%;
-margin:auto;
-margin-top:400px;
-postion:absolute;
-transition:3s;
--webkit-transition-timing-function: ease-out;
-}
-.circleup {
-height:500px !important;
-width:500px !important;
-margin: auto !important;
-margin: -50px;
-opacity:0;
-top: 206px;
-left: 0;
-right: 0;
-position: absolute;
-}
 #keys {
   height: 116px;
   width: 672px;
@@ -96,9 +75,6 @@ left: 0;
 width: 100%;
 height: 100%;
 }
-circle {
-fill: rgba(255, 255, 255, 0.3);
-}
 
 #a {
   border: 3px solid #E040FB;
@@ -134,8 +110,6 @@ fill: rgba(255, 255, 255, 0.3);
   border: 3px solid #FF7043;
   box-shadow: 0px 6px 0px #F4511E;
 }
-
-
 .box.active {
   margin-top: 5px;
 }
@@ -172,10 +146,9 @@ fill: rgba(255, 255, 255, 0.3);
 </head>
     <body>
 <!-- This is my jank-->
-
 <link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Amaranth:400,700italic' rel='stylesheet' type='text/css'>
-<div class="subtitle">Use your keyboard for piano <span>sound</span> and <span>color</span></div>
+<div class="subtitle">Use your electric signals in your brain to play the <span>piano</span></div>
 <div id="keys">
 		<div id="a" class="box">
 				<p>A</p>
@@ -199,93 +172,11 @@ fill: rgba(255, 255, 255, 0.3);
 				<p>U</p>
 		</div>
 </div>
-<div id="circleboom"></div>
+<!--<div id="circleboom"></div>-->
 
 <!--Stuff before here -->
     </body>
-     <script type="text/javascript" src="js/three.min.js"></script>
+    <!-- <script type="text/javascript" src="js/three.min.js"></script>-->
      <script type="text/javascript" src="js/nodesocket.js"></script>
      <script type="text/javascript" src="js/main.js"></script>
-     <!--
-     var keyAllowed = {};
-$("#circleboom").before('<div style="background-color:#E040FB" id="circleboom"></div>').addClass("circleup");
-
-$(document).on('keydown', function(e) {
-		if (keyAllowed[e.which] === false) return;
-		keyAllowed[e.which] = false;
-		if (e.which >= 1 && e.which <= 100) {
-				var k = String.fromCharCode(e.which).toLowerCase();
-				if (k == "a") {
-						k = "a";
-						$("#circleboom").before('<div style="background-color:#E040FB" id="circleboom"></div>').addClass("circleup");
-				}
-				if (k == "z") {
-						k = "b";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#7C4DFF" id="circleboom"></div>');
-				}
-				if (k == "e") {
-						k = "c";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#448AFF" id="circleboom"></div>');
-				}
-				if (k == "r") {
-						k = "d";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#9CCC65" id="circleboom"></div>');
-				}
-				if (k == "t") {
-						k = "e";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#FFF176" id="circleboom"></div>');
-				}
-				if (k == "y") {
-						k = "f";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#FFB74D" id="circleboom"></div>');
-				}
-				if (k == "u") {
-						k = "g";
-					$("#circleboom").addClass("circleup");
-						$("#circleboom").before('<div style="background-color:#FF7043" id="circleboom"></div>');
-				}
-				$("#" + k).addClass("active");
-		}
-}).keyup(function(e) {
-		if (e.which >= 1 && e.which <= 100) {
-				keyAllowed[e.which] = true;
-				var k = String.fromCharCode(e.which).toLowerCase();
-				if (k == "a") {
-						k = "a";
-				}
-				if (k == "z") {
-						k = "b";
-				}
-				if (k == "e") {
-						k = "c";
-				}
-				if (k == "r") {
-						k = "d";
-				}
-				if (k == "t") {
-						k = "e";
-				}
-				if (k == "y") {
-						k = "f";
-				}
-				if (k == "u") {
-						k = "g";
-				}
-				$("#" + k).removeClass("active");
-		}
-});
-
-$(".box").on('mouseleave mouseup', function() {
-		if ($(this).hasClass("click")) {
-				$(this).removeClass("active");
-				$(this).removeClass("click");
-		}
-});
-</script>
-    inbetween here -->
 </html>
