@@ -3,180 +3,46 @@
 
 <head>
 
-    <title>Basic BCI</title>
+    <title>Piano</title> 
     <script src="/socket.io/socket.io.js"></script>
-    <!-- -->
-    <style>
-    body {
-  background-color: #0A1F16;
-  overflow: hidden;
-}
-
-.subtitle {
-text-align:center;
-color:white;
-font-family: 'Amaranth', sans-serif;
-font-size: 15px;
-margin-top:25px;
-}
-.subtitle span {
-border-bottom: 2.5px white solid;
-}
-#keys {
-  height: 116px;
-  width: 672px;
-  padding-right: 10px;
-  padding-top: 100px;
-  margin: 0 auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-#keys p {
-  font-family: 'Oswald', sans-serif;
-  color: white;
-  font-size: 15px;
-  text-align: center;
-  margin-top: 25px;
-}
-
-.box {
-  width: 80px;
-  height: 80px;
-  margin-left: 10px;
-  float: left;
-  border-radius: 10px;
-  display: block;
-  -webkit-transition: all .15s ease-out;
-  transition: all .15s ease-out;
-  border: 3px solid #FF7043;
-  box-shadow: 0px 6px 0px #F4511E;
-}
-
-.click {
-  width: 80px;
-  height: 80px;
-  margin-left: 10px;
-  float: left;
-  border-radius: 10px;
-  display: block;
-  -webkit-transition: all .15s ease-out;
-  transition: all .15s ease-out;
-  border: 3px solid #FF7043;
-  box-shadow: 0px 6px 0px #F4511E;
-}
-svg {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
-
-#a {
-  border: 3px solid #E040FB;
-  box-shadow: 0px 6px 0px #AA00FF;
-}
-
-#b {
-  border: 3px solid #7C4DFF;
-  box-shadow: 0px 6px 0px #6200EA;
-}
-
-#c {
-  border: 3px solid #448AFF;
-  box-shadow: 0px 6px 0px #2962FF;
-}
-
-#d {
-  border: 3px solid #9CCC65;
-  box-shadow: 0px 6px 0px #2E7D32;
-}
-
-#e {
-  border: 3px solid #FFF176;
-  box-shadow: 0px 6px 0px #FFD600;
-}
-
-#f {
-  border: 3px solid #FFB74D;
-  box-shadow: 0px 6px 0px #FF9100;
-}
-
-#g {
-  border: 3px solid #FF7043;
-  box-shadow: 0px 6px 0px #F4511E;
-}
-.box.active {
-  margin-top: 5px;
-}
-
-#a.active {
-  box-shadow: 0px 3px 0px #AA00FF !important;
-}
-
-#b.active {
-  box-shadow: 0px 3px 0px #6200EA !important;
-}
-
-#c.active {
-  box-shadow: 0px 3px 0px #2962FF !important;
-}
-
-#d.active {
-  box-shadow: 0px 3px 0px #2E7D32 !important;
-}
-
-#e.active {
-  box-shadow: 0px 3px 0px #FFD600 !important;
-}
-
-#f.active {
-  box-shadow: 0px 3px 0px #FF9100 !important;
-}
-
-#g.active {
-  box-shadow: 0px 3px 0px #F4511E !important;
-}
-    </style>
-    <!-- -->
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="js/piano.css"  />
 </head>
     <body>
-<!-- This is my jank-->
-<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Amaranth:400,700italic' rel='stylesheet' type='text/css'>
-<div class="subtitle">Use your electric signals in your brain to play the <span>piano</span></div>
-<div id="keys">
-		<div id="a" class="box">
-				<p>A</p>
-		</div>
-		<div id="b" class="box">
-				<p>Z</p>
-		</div>
-		<div id="c" class="box">
-				<p>E</p>
-		</div>
-		<div id="d" class="box">
-				<p>R</p>
-		</div>
-		<div id="e" class="box">
-				<p>T</p>
-		</div>
-		<div id="f" class="box">
-				<p>Y</p>
-		</div>
-		<div id="g" class="box">
-				<p>U</p>
-		</div>
-</div>
-<!--<div id="circleboom"></div>-->
+      <div class="wrapper">
+    <div class="piano">
+        <div class="controls">
+            <div>
+                <span>Octaves</span>
+                <span class="js-octave-min"></span>
+                <span>to</span>
+                <span class="js-octave-max"></span>
+                <input type="button" class="js-octave-decrement" value="-">
+                <input type="button" class="js-octave-increment" value="+">
+            </div>
+            <div>
+                <label for="waveform">Waveform</label>
+                <select name="waveform" id="waveform" class="js-control">
+                    <option value="sine" selected>Sine</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="square">Square</option>
+                </select>
+            </div>
+        </div>
+        <div class="keys"></div>
+    </div>
+</div> 
 
-<!--Stuff before here -->
+    
     </body>
-    <!-- <script type="text/javascript" src="js/three.min.js"></script>-->
-     <script type="text/javascript" src="js/nodesocket.js"></script>
-     <script type="text/javascript" src="js/main.js"></script>
+	     <script type="text/javascript" src="js/nodesocket.js"></script>
+	<script type="text/javascript" src="js/piano.js"></script>     
+ <!--    <script type="text/javascript" src="js/three.min.js"></script>-->
+
+<!--	   <script type="text/javascript" src="js/Tone.js"></script> -->
+ <!--    <script type="text/javascript" src="js/main.js"></script> -->
 </html>

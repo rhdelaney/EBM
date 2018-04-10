@@ -1,0 +1,30 @@
+<body>
+<head>
+<link rel="stylesheet" type="text/css" href="piano.css" media="screen" />
+</head>
+<div class="wrapper">
+    <div class="piano">
+        <div class="controls">
+            <div>
+                <span>Octaves</span>
+                <span class="js-octave-min"></span>
+                <span>to</span>
+                <span class="js-octave-max"></span>
+                <input type="button" class="js-octave-decrement" value="-">
+                <input type="button" class="js-octave-increment" value="+">
+            </div>
+            <div>
+                <label for="waveform">Waveform</label>
+                <select name="waveform" id="waveform" class="js-control">
+                    <option value="sine" selected>Sine</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="square">Square</option>
+                </select>
+            </div>
+        </div>
+        <div class="keys"></div>
+    </div>
+</div> 
+<script type="text/javascript" src="piano.js"></script>
+</body>
