@@ -38,26 +38,50 @@ b=b/(t+a);
 
     if(b > 0.0 && b<0.4){
        $("#c"+selectedOctave).click()
-      document.getElementById("output").innerHTML=("c4, b="+b);
+         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+         document.getElementById("output1").innerHTML=("c4, b="+b);
    }
    else if(b > 0.4 && b<0.8){
       $("#d"+selectedOctave).click()
-      document.getElementById("output").innerHTML=("d4, b="+b);
+        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+      document.getElementById("output1").innerHTML=("d4, b="+b);
    }
    else if(b > 0.8 && b<1.2){
       $("#e"+selectedOctave).click()
-      document.getElementById("output").innerHTML=("e4, b="+b);
+        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+      document.getElementById("output1").innerHTML=("e4, b="+b);
    }
    else if (b > 1.2 && b<1.6) {
 	    $("#f"+selectedOctave).click()
-      document.getElementById("output").innerHTML=("f4, b="+b);
+        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+      document.getElementById("output1").innerHTML=("f4, b="+b);
    }
     else if  (b > 1.6 && b<2.0) {
 	     $("#g"+selectedOctave).click()
-       document.getElementById("output").innerHTML=("g4, b="+b);
+       document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+       document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+       document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+       document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+       document.getElementById("output1").innerHTML=("g4, b="+b);
    }
    else{
 	     $("#a"+selectedOctave).click()
+       document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+       document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+       document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+       document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
        document.getElementById("output").innerHTML=("a4, b="+b);
     }
 }
