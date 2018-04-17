@@ -10,8 +10,7 @@ const audioCtx = new AudioContext();
 
 const wrapperEl = $('.wrapper');
 const keysWrapperEl = $('.keys');
-const selectedOctaveMinEl = $('.js-octave-min');
-const selectedOctaveMaxEl = $('.js-octave-max');
+const selectedOctaveEl = $('.js-octave-min');
 const octaveDecrementButtonEl = $('.js-octave-decrement');
 const octaveIncrementButtonEl = $('.js-octave-increment');
 
@@ -32,26 +31,34 @@ socket = new NodeSocket();
 function inputtopiano() {
 
 var b = socket.getBeta();
-console.log(b);
+var a = socket.getAlpha();
+var t = socket.getTheta();
+b=b/(t+a);
+//console.log("b="+b+"  a="+a+"  t="+t);
 
     if(b > 0.0 && b<0.4){
-       $("#c4").click()
+       $("#c"+selectedOctave).click()
+      document.getElementById("output").innerHTML=("c4, b="+b);
    }
    else if(b > 0.4 && b<0.8){
-      $("#d4").click()
+      $("#d"+selectedOctave).click()
+      document.getElementById("output").innerHTML=("d4, b="+b);
    }
    else if(b > 0.8 && b<1.2){
-      $("#e4").click()
-
+      $("#e"+selectedOctave).click()
+      document.getElementById("output").innerHTML=("e4, b="+b);
    }
    else if (b > 1.2 && b<1.6) {
-	    $("#f4").click()
+	    $("#f"+selectedOctave).click()
+      document.getElementById("output").innerHTML=("f4, b="+b);
    }
     else if  (b > 1.6 && b<2.0) {
-	     $("#g4").click()
+	     $("#g"+selectedOctave).click()
+       document.getElementById("output").innerHTML=("g4, b="+b);
    }
    else{
-	     $("#a4").click()
+	     $("#a"+selectedOctave).click()
+       document.getElementById("output").innerHTML=("a4, b="+b);
     }
 }
 //=====================================================================//
@@ -59,8 +66,7 @@ console.log(b);
 const OCTAVE_MIN = 0;
 const OCTAVE_MAX = 9;
 
-let selectedOctaveMin = 4;
-let selectedOctaveMax = 5;
+let selectedOctave = 4;
 let selectedWaveform = "sine";
 
 const frequencyColors = ["#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd", "#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd"];
@@ -75,7 +81,7 @@ drawKeys();
 function drawKeys() {
     keysWrapperEl.innerHTML = '';
 
-    const frequenciesToDraw = getFreqs(selectedOctaveMin, selectedOctaveMax);
+    const frequenciesToDraw = getFreqs(selectedOctave);
 
     frequenciesToDraw.forEach(freqObj => {
         Object.keys(freqObj).forEach((freqKey, freqIndex) => {
@@ -121,31 +127,26 @@ function playSound(freq) {
 
 function handleOctaveChange(e, posneg) {
     e.preventDefault();
-    selectedOctaveMin += posneg;
-    selectedOctaveMax += posneg;
+    selectedOctave += posneg;
     //updateBackground();
     drawKeys();
 }
 
 function handleOctaveDecrementClick(e) {
     e.preventDefault();
-    selectedOctaveMin--;
-    selectedOctaveMax--;
+    selectedOctave--;
     updateControlEls();
     drawKeys();
 }
 
 function handleOctaveIncrementClick(e) {
     e.preventDefault();
-    selectedOctaveMin++;
-    selectedOctaveMax++;
+    selectedOctave++;
     updateControlEls();
     drawKeys();
 }
 
-
 // ===== HELPERS ===== //
-
 
 function handleKeyClick(keyEl, freq, ind) {
     playSound(freq);
@@ -157,8 +158,7 @@ function updateBackground(key, index) {
 }
 
 function updateControlEls() {
-    selectedOctaveMinEl.innerHTML = selectedOctaveMin;
-    selectedOctaveMaxEl.innerHTML = selectedOctaveMax;
+    selectedOctaveEl.innerHTML = selectedOctave;
 }
 
 function formatFrequency(f) {
@@ -169,26 +169,23 @@ function getFreq(keyIndex) {
 	return 440 * (2 ** ((keyIndex - 58) / 12));
 }
 
-function getFreqs(min, max) {
+function getFreqs(min) {
 	const result = [];
 	let keyIndex = 12 * min;
 
-	for (let o = min; o <= max; o++) {
-		const freqObj = {};
-		keys.forEach((key, index) => {
-			keyIndex++;
-			freqObj[key + o] = getFreq(keyIndex);
-		});
+
+	const freqObj = {};
+	keys.forEach((key, index) => {
+		keyIndex++;
+		freqObj[key + min] = getFreq(keyIndex);
+	});
 		result.push(freqObj);
-	}
+
 
 	return result;
 };
 
   setInterval(function(){inputtopiano();}, 1000);
-
-
-
 
 
 // ===== DRAW EVENTS ===== //
