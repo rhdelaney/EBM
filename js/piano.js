@@ -37,13 +37,14 @@ b=b/(t+a);
 //console.log("b="+b+"  a="+a+"  t="+t);
 
     if(b > 0.0 && b<0.4){
-    //  $("#c"+selectedOctave).addClass("background-image: linear-gradient(#f1f1f1 0%, #ddd 100%);")
+      //$("#c"+selectedOctave).onkeydown();
        $("#c"+selectedOctave).click()
          document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
          document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
          document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
          document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
          document.getElementById("output1").innerHTML=("c4, b="+b);
+
    }
    else if(b > 0.4 && b<0.8){
       $("#d"+selectedOctave).click()
