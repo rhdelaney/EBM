@@ -16,7 +16,25 @@ const octaveIncrementButtonEl = $('.js-octave-increment');
 
 octaveDecrementButtonEl.addEventListener('click', handleOctaveDecrementClick);
 octaveIncrementButtonEl.addEventListener('click', handleOctaveIncrementClick);
+var v;
 
+// On / off button
+var btn = document.querySelector('input');
+
+btn.addEventListener('click', updateBtn);
+
+function updateBtn() {
+  if (btn.value === 'Start') {
+    btn.value = 'Stop';
+	v=   setInterval(function(){inputtopiano();}, 1000);
+
+  } else if (btn.value === 'Stop'){
+    btn.value = 'Start';
+	clearInterval(v);
+
+    //clearInterval(myVar);
+  }
+}
 
 // ===== DATA ===== //
 
@@ -85,7 +103,12 @@ b=b/(t+a);
        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
        document.getElementById("output").innerHTML=("a4, b="+b);
-    }
+    
+   }
+  
+if (btn.value === 'Start'){
+  
+clearInterval(v);}
 }
 //=====================================================================//
 
@@ -211,10 +234,15 @@ function getFreqs(min) {
 	return result;
 };
 
-  setInterval(function(){inputtopiano();}, 1000);
+/* if(btn.value === 'Start') {
+     setInterval(function(){inputtopiano();}, 1000);
+  } 
 
-
+function myStopFunction() {
+    
+} */
 // ===== DRAW EVENTS ===== //
+	  //if (btn.value=='Stop'){ var v=   setInterval(function(){inputtopiano();}, 1000)}
 
 
 //updateControlEls();
