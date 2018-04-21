@@ -5,6 +5,7 @@ body {
 
 html, body, .wrapper {
     height: 100%;
+    background-color: #D3D3D3;
 }
 
 
@@ -18,7 +19,7 @@ html, body, .wrapper {
 .piano {
     background-color: #1a1a1a;
     padding: 20px;
-    height: 300px;
+    height: 325px;
     // width: 730px;
     border-radius: 20px;
     transform: scale(1);
@@ -37,7 +38,7 @@ html, body, .wrapper {
 .key {
     font-size: 10px;
     position: relative;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     border-radius: 0 0 0.5rem 0.5rem;
     display: flex;
     align-items: flex-end;
