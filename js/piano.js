@@ -37,6 +37,20 @@ function updateBtn() {
     //clearInterval(myVar);
   }
 }
+//Start of code for Range Bar:
+var range = document.querySelector('#formControlRange');
+
+function updateRange() {
+  var b = socket.getBeta();
+  var a = socket.getAlpha();
+  var t = socket.getTheta();
+  b=b/(t+a);
+  range.value = b;
+}
+//this needs to be constantly called ^^
+
+
+
 
 // ===== DATA ===== //
 
