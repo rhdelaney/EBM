@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
     <script src="/socket.io/socket.io.js"></script>
-	<script
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--	<script
 	  src="https://code.jquery.com/jquery-3.3.1.min.js"
 	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	  crossorigin="anonymous"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>-->
 </head>
 	<link rel="stylesheet" type="text/css" href="js/piano.css"  />
 </head>
@@ -28,7 +29,7 @@
       <select class="form-control" id="tempoSelect">
         <option value="1">1</option>
         <option value="2">2</option>
-        <option value="4">4</option>
+        <option value="4" selected>4</option>
         <option value="8">8</option>
         <option value="16">16</option>
       </select>
@@ -64,8 +65,8 @@
     <form>
       <div class="row form-group">
         <label for="formControlRange" style="text-align: center">BCI Key Gauge</label>
-        <input type="range" class="form-control-range" id="formControlRange" min="0" max="2" step="0.01"
-        value="0">
+        <input type="range" class="form-control-range" id="formControlRange" min="0" max="2.8" step="0.01"
+        value="2.8">
       </div>
     </form>
   <div class="row">

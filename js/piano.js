@@ -14,10 +14,11 @@ const selectedOctaveEl = $('.js-octave-min');
 const octaveDecrementButtonEl = $('.js-octave-decrement');
 const octaveIncrementButtonEl = $('.js-octave-increment');
 
+
 octaveDecrementButtonEl.addEventListener('click', handleOctaveDecrementClick);
 octaveIncrementButtonEl.addEventListener('click', handleOctaveIncrementClick);
 var v;
-
+var tempoSelected = document.querySelector('#tempoSelect');
 // On / off button
 var btn = document.querySelector('#startstop');
 
@@ -27,10 +28,10 @@ function updateBtn() {
   if (btn.value === 'Start') {
     btn.value = 'Stop';
     r=setInterval(function(){updateRange();}, 10);
-    v=setInterval(function(){inputtopiano(r);}, 1000);
-    
+    v=setInterval(function(){inputtopiano(r);}, getTempo());
+
     btn.innerHTML = "Stop";
-  } 
+  }
   else if (btn.value === 'Stop'){
     btn.value = 'Start';
     clearInterval(r);
@@ -38,22 +39,36 @@ function updateBtn() {
     btn.innerHTML = "Start";
   }
 }
+//var b=0;
 //Start of code for Range Bar:
 var range = document.querySelector('#formControlRange');
-
 function updateRange() {
   var b = socket.getBeta();
   var a = socket.getAlpha();
   var t = socket.getTheta();
   b=b/(t+a);
-//  console.log("b="+b+"  a="+a+"  t="+t);
-  range.value = b;
+  //b+=0.001;
+  range.value =b;
   return b;
 }
-
-
+function getTempo(){
+  if(tempoSelected.value==='1'){
+    return 4000;
+  }
+  else if(tempoSelected.value==='2'){
+    return 2000;
+  }
+  else if(tempoSelected.value==='4'){
+    return  1000;
+  }
+  else if(tempoSelected.value==='8'){
+    return 500;
+  }
+  else{
+    return 250;
+  }
+}
 // ===== DATA ===== //
-
 
 // Link to OSC data
 socket = new NodeSocket();
@@ -61,56 +76,68 @@ socket = new NodeSocket();
 
 function inputtopiano(b) {
 
-    if(b > 0.0 && b<0.4){
+    if(b => 0.0 && b<0.4){
       //$("#c"+selectedOctave).onkeydown();
        $("#c"+selectedOctave).click()
          document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
          document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
          document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
          document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-         document.getElementById("output1").innerHTML=("c4, b="+b);
-
+        // document.getElementById("output1").innerHTML=("c4, b="+ b);
+        console.log(b);
    }
-   else if(b > 0.4 && b<0.8){
+   else if(b => 0.4 && b<0.8){
       $("#d"+selectedOctave).click()
         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-      document.getElementById("output1").innerHTML=("d4, b="+b);
+      //document.getElementById("output1").innerHTML=("d4, b="+b);
+      console.log(b);
    }
-   else if(b > 0.8 && b<1.2){
+   else if(b => 0.8 && b<1.2){
       $("#e"+selectedOctave).click()
         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-      document.getElementById("output1").innerHTML=("e4, b="+b);
+    //  document.getElementById("output1").innerHTML=("e4, b="+b);
+        console.log(b);
    }
-   else if (b > 1.2 && b<1.6) {
+   else if (b => 1.2 && b<1.6) {
 	    $("#f"+selectedOctave).click()
         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-      document.getElementById("output1").innerHTML=("f4, b="+b);
+    //  document.getElementById("output1").innerHTML=("f4, b="+ b);
+        console.log(b);
    }
-    else if  (b > 1.6 && b<2.0) {
+    else if  (b => 1.6 && b<2.0) {
 	     $("#g"+selectedOctave).click()
        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-       document.getElementById("output1").innerHTML=("g4, b="+b);
+       //document.getElementById("output1").innerHTML=("g4, b="+b);
+       console.log(b);
    }
-   else{
+   else if (b=>2.0 && b<2.4 ){
 	     $("#a"+selectedOctave).click()
        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-       document.getElementById("output").innerHTML=("a4, b="+b);
-
+      // document.getElementById("output").innerHTML=("a4, b="+b);
+      console.log(b);
+   }
+   else{
+     $("#b"+selectedOctave).click()
+     document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+     document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+     document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+     document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+     console.log(b);
    }
 
 if (btn.value === 'Start'){
@@ -166,7 +193,7 @@ function playSound(freq) {
     // oscillator controls frequency input, gain controls volume (amplitude)
     const oscillatorNode = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
-
+    getWavey();
     oscillatorNode.type = selectedWaveform;
     oscillatorNode.frequency.value = freq;
 
@@ -201,6 +228,20 @@ function handleOctaveIncrementClick(e) {
     drawKeys();
 }
 
+function getWavey(){
+  if(waveform.value==='triangle'){
+    selectedWaveform="triangle";
+  }
+  else if(waveform.value==='sawtooth'){
+    selectedWaveform="sawtooth";
+  }
+  else if(waveform.value==='square'){
+    selectedWaveform="square";
+  }
+  else{
+      selectedWaveform="sine";
+  }
+}
 // ===== HELPERS ===== //
 
 function handleKeyClick(keyEl, freq, ind) {
