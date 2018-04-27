@@ -26,15 +26,16 @@ btn.addEventListener('click', updateBtn);
 function updateBtn() {
   if (btn.value === 'Start') {
     btn.value = 'Stop';
-	   v=setInterval(function(){inputtopiano();}, 1000);
-     btn.innerHTML = "Stop";
-
-  } else if (btn.value === 'Stop'){
+    r=setInterval(function(){updateRange();}, 10);
+    v=setInterval(function(){inputtopiano(r);}, 1000);
+    
+    btn.innerHTML = "Stop";
+  } 
+  else if (btn.value === 'Stop'){
     btn.value = 'Start';
-	clearInterval(v);
-  btn.innerHTML = "Start";
-
-    //clearInterval(myVar);
+    clearInterval(r);
+    clearInterval(v);
+    btn.innerHTML = "Start";
   }
 }
 //Start of code for Range Bar:
@@ -45,11 +46,10 @@ function updateRange() {
   var a = socket.getAlpha();
   var t = socket.getTheta();
   b=b/(t+a);
+//  console.log("b="+b+"  a="+a+"  t="+t);
   range.value = b;
+  return b;
 }
-//this needs to be constantly called ^^
-
-
 
 
 // ===== DATA ===== //
@@ -59,16 +59,7 @@ function updateRange() {
 socket = new NodeSocket();
 
 
-
-
-
-function inputtopiano() {
-
-var b = socket.getBeta();
-var a = socket.getAlpha();
-var t = socket.getTheta();
-b=b/(t+a);
-//console.log("b="+b+"  a="+a+"  t="+t);
+function inputtopiano(b) {
 
     if(b > 0.0 && b<0.4){
       //$("#c"+selectedOctave).onkeydown();
@@ -134,7 +125,7 @@ const OCTAVE_MAX = 9;
 let selectedOctave = 4;
 let selectedWaveform = "sine";
 
-const frequencyColors = ["#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd", "#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd"];
+//const frequencyColors = ["#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd", "#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd"];
 
 const keys = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b'];
 
@@ -167,7 +158,6 @@ function drawKeys() {
           keyEl.addEventListener('click', () => handleKeyClick(keyEl, freq, freqIndex));
 
             keysWrapperEl.appendChild(keyEl);
-            //inputtopiano();
         });
     });
 }
@@ -218,9 +208,9 @@ function handleKeyClick(keyEl, freq, ind) {
     //updateBackground(keyEl, ind);
 }
 
-function updateBackground(key, index) {
-    wrapperEl.style.backgroundColor = frequencyColors[index];
-}
+//function updateBackground(key, index) {
+//    wrapperEl.style.backgroundColor = frequencyColors[index];
+//}
 
 function updateControlEls() {
     selectedOctaveEl.innerHTML = selectedOctave;
@@ -249,17 +239,3 @@ function getFreqs(min) {
 
 	return result;
 };
-
-/* if(btn.value === 'Start') {
-     setInterval(function(){inputtopiano();}, 1000);
-  }
-
-function myStopFunction() {
-
-} */
-// ===== DRAW EVENTS ===== //
-	  //if (btn.value=='Stop'){ var v=   setInterval(function(){inputtopiano();}, 1000)}
-
-
-//updateControlEls();
-//drawKeys();
