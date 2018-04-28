@@ -18,25 +18,33 @@ const octaveIncrementButtonEl = $('.js-octave-increment');
 octaveDecrementButtonEl.addEventListener('click', handleOctaveDecrementClick);
 octaveIncrementButtonEl.addEventListener('click', handleOctaveIncrementClick);
 var v;
+// var count;
+// var threshhold;
 var relativePower;
+
 var tempoSelected = document.querySelector('#tempoSelect');
 // On / off button
 var btn = document.querySelector('#startstop');
 
 btn.addEventListener('click', updateBtn);
 
+let threshhold = 1000;
+let count = 0;
+
+
 function updateBtn() {
   if (btn.value === 'Start') {
     btn.value = 'Stop';
-    r = setInterval(function(){updateRange();}, 10);
-    v = setInterval(function(){inputtopiano(relativePower);}, getTempo());
+    r = setInterval(function(){updateRange();}, 1);
+//    v = setInterval(function(){inputtopiano(relativePower);}, getTempo());
 
     btn.innerHTML = "Stop";
   }
   else if (btn.value === 'Stop'){
     btn.value = 'Start';
     clearInterval(r);
-    clearInterval(v);
+    count = 0;
+//    clearInterval(v);
     btn.innerHTML = "Start";
   }
 }
@@ -48,25 +56,31 @@ function updateRange() {
   var a = socket.getAlpha();
   var t = socket.getTheta();
   relativePower=b/(t+a);
-//  console.log(b);
+
   range.value = relativePower;
+  count++;
+  getTempo();
+  if(count >= threshhold){
+      inputtopiano();
+      count = 0;
+  }
 
 }
 function getTempo(){
   if(tempoSelected.value==='1'){
-    return 4000;
+    threshhold = 400;
   }
   else if(tempoSelected.value==='2'){
-    return 2000;
+    threshhold = 200;
   }
   else if(tempoSelected.value==='4'){
-    return  1000;
+    threshhold = 100;
   }
   else if(tempoSelected.value==='8'){
-    return 500;
+    threshhold = 50;
   }
   else{
-    return 250;
+    threshhold = 25;
   }
 }
 // ===== DATA ===== //
@@ -74,9 +88,9 @@ function getTempo(){
 // Link to OSC data
 socket = new NodeSocket();
 
-function inputtopiano(b) {
-
-    if(b => 0.0 && b<0.4){
+function inputtopiano() {
+    console.log(relativePower);
+    if(relativePower < 0.4){
       //$("#c"+selectedOctave).onkeydown();
        $("#c"+selectedOctave).click()
          document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
@@ -85,60 +99,61 @@ function inputtopiano(b) {
          document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
         // document.getElementById("output1").innerHTML=("c4, b="+ b);
 //        console.log(b);
-   }
-   else if(b => 0.4 && b<0.8){
-      $("#d"+selectedOctave).click()
+    }
+    else if(relativePower<0.8){
+        $("#d"+selectedOctave).click()
         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
       //document.getElementById("output1").innerHTML=("d4, b="+b);
 //      console.log(b);
-   }
-   else if(b => 0.8 && b<1.2){
-      $("#e"+selectedOctave).click()
+    }
+    else if(relativePower<1.2){
+         $("#e"+selectedOctave).click()
+         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+     //  document.getElementById("output1").innerHTML=("e4, b="+b);
+//         console.log(b);
+    }
+    else if (relativePower<1.6) {
+	       $("#f"+selectedOctave).click()
+         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+     //  document.getElementById("output1").innerHTML=("f4, b="+ b);
+//         console.log(b);
+    }
+     else if  (relativePower<2.0) {
+	       $("#g"+selectedOctave).click()
         document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
         document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-    //  document.getElementById("output1").innerHTML=("e4, b="+b);
-        console.log(b);
-   }
-   else if (b => 1.2 && b<1.6) {
-	    $("#f"+selectedOctave).click()
-        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
-        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
-        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
-        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-    //  document.getElementById("output1").innerHTML=("f4, b="+ b);
+        //document.getElementById("output1").innerHTML=("g4, b="+b);
 //        console.log(b);
-   }
-    else if  (b => 1.6 && b<2.0) {
-	     $("#g"+selectedOctave).click()
-       document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
-       document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
-       document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
-       document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-       //document.getElementById("output1").innerHTML=("g4, b="+b);
+    }
+    else if (relativePower<2.4 ){
+	       $("#a"+selectedOctave).click()
+        document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+        document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
+       // document.getElementById("output").innerHTML=("a4, b="+b);
 //       console.log(b);
-   }
-   else if (b=>2.0 && b<2.4 ){
-	     $("#a"+selectedOctave).click()
-       document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
-       document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
-       document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
-       document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-      // document.getElementById("output").innerHTML=("a4, b="+b);
+    }
+    else{
+      $("#b"+selectedOctave).click()
+      document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
+      document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
+      document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
+      document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
 //      console.log(b);
-   }
-   else{
-     $("#b"+selectedOctave).click()
-     document.getElementById("output5").innerHTML=document.getElementById("output4").innerHTML
-     document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
-     document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
-     document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-//     console.log(b);
-   }
+    }
+    count = 0;
 
 if (btn.value === 'Start'){
 
