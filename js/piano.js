@@ -18,6 +18,7 @@ const octaveIncrementButtonEl = $('.js-octave-increment');
 octaveDecrementButtonEl.addEventListener('click', handleOctaveDecrementClick);
 octaveIncrementButtonEl.addEventListener('click', handleOctaveIncrementClick);
 var v;
+var relativePower;
 var tempoSelected = document.querySelector('#tempoSelect');
 // On / off button
 var btn = document.querySelector('#startstop');
@@ -27,8 +28,8 @@ btn.addEventListener('click', updateBtn);
 function updateBtn() {
   if (btn.value === 'Start') {
     btn.value = 'Stop';
-    r=setInterval(function(){updateRange();}, 10);
-    v=setInterval(function(){inputtopiano(r);}, getTempo());
+    r = setInterval(function(){updateRange();}, 10);
+    v = setInterval(function(){inputtopiano(relativePower);}, getTempo());
 
     btn.innerHTML = "Stop";
   }
@@ -46,10 +47,10 @@ function updateRange() {
   var b = socket.getBeta();
   var a = socket.getAlpha();
   var t = socket.getTheta();
-  b=b/(t+a);
-  //b+=0.001;
-  range.value =b;
-  return b;
+  relativePower=b/(t+a);
+//  console.log(b);
+  range.value = relativePower;
+
 }
 function getTempo(){
   if(tempoSelected.value==='1'){
@@ -73,7 +74,6 @@ function getTempo(){
 // Link to OSC data
 socket = new NodeSocket();
 
-
 function inputtopiano(b) {
 
     if(b => 0.0 && b<0.4){
@@ -84,7 +84,7 @@ function inputtopiano(b) {
          document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
          document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
         // document.getElementById("output1").innerHTML=("c4, b="+ b);
-        console.log(b);
+//        console.log(b);
    }
    else if(b => 0.4 && b<0.8){
       $("#d"+selectedOctave).click()
@@ -93,7 +93,7 @@ function inputtopiano(b) {
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
       //document.getElementById("output1").innerHTML=("d4, b="+b);
-      console.log(b);
+//      console.log(b);
    }
    else if(b => 0.8 && b<1.2){
       $("#e"+selectedOctave).click()
@@ -111,7 +111,7 @@ function inputtopiano(b) {
         document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
         document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
     //  document.getElementById("output1").innerHTML=("f4, b="+ b);
-        console.log(b);
+//        console.log(b);
    }
     else if  (b => 1.6 && b<2.0) {
 	     $("#g"+selectedOctave).click()
@@ -120,7 +120,7 @@ function inputtopiano(b) {
        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
        //document.getElementById("output1").innerHTML=("g4, b="+b);
-       console.log(b);
+//       console.log(b);
    }
    else if (b=>2.0 && b<2.4 ){
 	     $("#a"+selectedOctave).click()
@@ -129,7 +129,7 @@ function inputtopiano(b) {
        document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
        document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
       // document.getElementById("output").innerHTML=("a4, b="+b);
-      console.log(b);
+//      console.log(b);
    }
    else{
      $("#b"+selectedOctave).click()
@@ -137,7 +137,7 @@ function inputtopiano(b) {
      document.getElementById("output4").innerHTML=document.getElementById("output3").innerHTML
      document.getElementById("output3").innerHTML=document.getElementById("output2").innerHTML
      document.getElementById("output2").innerHTML=document.getElementById("output1").innerHTML
-     console.log(b);
+//     console.log(b);
    }
 
 if (btn.value === 'Start'){
