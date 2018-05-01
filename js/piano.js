@@ -125,7 +125,7 @@ const OCTAVE_MAX = 9;
 let selectedOctave = 4;
 let selectedWaveform = "sine";
 
-//const frequencyColors = ["#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd", "#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd"];
+const frequencyColors = ["#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd", "#ff0000", "#ff4e00", "#db7b01", "#ffcd01", "#e4ed00", "#81d700", "#02feb4", "#01ffeb", "#01baff", "#3c00ff", "#a801ff", "#fe00fd"];
 
 const keys = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b'];
 
@@ -219,12 +219,12 @@ function getWavey(){
 
 function handleKeyClick(keyEl, freq, ind) {
     playSound(freq);
-    //updateBackground(keyEl, ind);
+   //updateBackground(keyEl, ind);
 }
 
-//function updateBackground(key, index) {
-//    wrapperEl.style.backgroundColor = frequencyColors[index];
-//}
+/*function updateBackground(key, index) {
+    keyEl.key.key--white:active.style.backgroundImage = frequencyColors[index];
+}*/
 
 function updateControlEls() {
     selectedOctaveEl.innerHTML = selectedOctave;

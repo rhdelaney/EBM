@@ -16,6 +16,28 @@ html, body, .wrapper {
     transition: background-color 200ms;
 }
 
+
+.ribbon {
+  position:absolute;
+   max-width: 24%;
+    height: auto;
+    width: auto\9;
+  top:0;
+  right:0;
+}
+
+.ribbon2 {
+  position:absolute;
+  
+  bottom:10 px;
+  right:0;
+}
+
+.ribbon3 {
+  position:absolute;
+  bottom:10 px;
+ left:0;
+}
 .piano {
     background-color: #1a1a1a;
     padding: 20px;
